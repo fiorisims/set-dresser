@@ -13,6 +13,7 @@ import maya.cmds as cmds
 # Settings: the rules of this set, in one place.
 GROUND_SIZE = 40.0            # the ground is GROUND_SIZE x GROUND_SIZE, centred on the origin
 PATH_HALF_WIDTH = 2.0         # the path is 4 wide, along Z through x = 0
+PATH_MARGIN = 1.0             # keep everything at least this far back from the path's edges
 POND_CENTER = (10.0, 10.0)    # x, z
 POND_RADIUS = 6.0
 AREA = 18.0                   # rocks and trees land within -AREA..AREA
@@ -74,8 +75,8 @@ def build_ground():
 # ---------- the rules ----------
 
 def is_clear(x, z):
-    """True when (x, z) is off the path and out of the pond."""
-    on_path = abs(x) < PATH_HALF_WIDTH
+    """True when (x, z) is at least PATH_MARGIN back from the path and out of the pond."""
+    on_path = abs(x) < PATH_HALF_WIDTH + PATH_MARGIN
     in_pond = math.hypot(x - POND_CENTER[0], z - POND_CENTER[1]) < POND_RADIUS
     return not on_path and not in_pond
 
