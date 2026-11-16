@@ -9,23 +9,24 @@ import maya.cmds as cmds
 import set_dresser
 
 WIN = "setDresserAgentWin"
-SIZE = (420, 275)
+SIZE = (420, 305)
 
 
 def read_controls():
-    """The four values the set dresser chose in the window."""
+    """The five values the set dresser chose in the window."""
     return dict(
         rocks=cmds.intSliderGrp("sdaRocks", q=True, v=True),
         trees=cmds.intSliderGrp("sdaTrees", q=True, v=True),
         area=cmds.floatSliderGrp("sdaArea", q=True, v=True),
         keep_clear=cmds.checkBox("sdaKeepClear", q=True, v=True),
+        seed=cmds.intSliderGrp("sdaSeed", q=True, v=True),
     )
 
 
 def on_scatter(*_):
     c = read_controls()
     set_dresser.build_ground()
-    set_dresser.scatter(c["rocks"], c["trees"], c["area"], c["keep_clear"])
+    set_dresser.scatter(c["rocks"], c["trees"], c["area"], c["keep_clear"], seed=c["seed"])
 
 
 def on_clear(*_):
@@ -43,6 +44,7 @@ def show():
     cmds.frameLayout(label="How many", marginWidth=6, marginHeight=6)
     cmds.intSliderGrp("sdaRocks", label="Rocks", field=True, min=0, max=200, value=30)
     cmds.intSliderGrp("sdaTrees", label="Trees", field=True, min=0, max=60, value=12)
+    cmds.intSliderGrp("sdaSeed", label="Seed", field=True, min=0, max=100, fieldMaxValue=99999, value=12)
     cmds.setParent("..")
 
     cmds.frameLayout(label="Where", marginWidth=6, marginHeight=6)

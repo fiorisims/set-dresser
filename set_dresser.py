@@ -122,8 +122,11 @@ def scatter_trees(count, area=AREA, keep_clear=True):
     return placed
 
 
-def scatter(rocks=30, trees=12, area=AREA, keep_clear=True):
-    """The whole scatter as one undo step. Returns (rocks placed, trees placed)."""
+def scatter(rocks=30, trees=12, area=AREA, keep_clear=True, seed=None):
+    """The whole scatter as one undo step. Returns (rocks placed, trees placed).
+    The same seed with the same settings places the same set every time."""
+    if seed is not None:
+        random.seed(seed)   # every random.uniform after this follows the same sequence
     cmds.undoInfo(openChunk=True, chunkName="set_dresser_scatter")
     try:
         return scatter_rocks(rocks, area, keep_clear), scatter_trees(trees, area, keep_clear)
