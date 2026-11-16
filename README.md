@@ -40,3 +40,8 @@ set_dresser_ui.show()
 - `send_to_maya.py`: sends one line of Python to an open Maya whose command
   port is on 7001 (`python send_to_maya.py "set_dresser.scatter(10, 4)"`).
 - `CLAUDE.md`: the rules the agent followed when building this.
+
+## Peer Run 
+
+The tool was super easy to use with clear functions and produced the results I needed.
+-Fayth Elisa
